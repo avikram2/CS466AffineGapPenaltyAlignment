@@ -21,7 +21,9 @@ class AffineAlignment(object):
 
     def first_recursion(self, first, match, second, i, j):
         if j > 1:
-            return max((first[i][j-1] - self.scoring_function.gap_extension_penalty), (match[i][j-1] - (self.scoring_function.gap_extension_penalty + self.scoring_function.gap_opening_penalty)))
+            extension_val = first[i][j-1] - self.scoring_function.gap_extension_penalty
+            opening_val = match[i][j-1] - (self.scoring_function.gap_extension_penalty + self.scoring_function.gap_opening_penalty)
+            return max(extension_val, opening_val)
         elif j > 0:
             return match[i][j-1] - (self.scoring_function.gap_extension_penalty + self.scoring_function.gap_opening_penalty)
 
@@ -70,27 +72,23 @@ class AffineAlignment(object):
         for i in range(1, len(v)+1):
             for j in range(1, len(w)+1):
                 first_sequence_gap_matrix[i][j] =self.first_recursion(first_sequence_gap_matrix, match_mismatch_matrix, second_sequence_gap_matrix, i, j)
-                match_mismatch_matrix[i][j] = self.match_recursion(first_sequence_gap_matrix, match_mismatch_matrix, second_sequence_gap_matrix, i, j, v[i-1], w[j-1])
                 second_sequence_gap_matrix[i][j] = self.second_recursion(first_sequence_gap_matrix, match_mismatch_matrix, second_sequence_gap_matrix, i, j)
-               
-
+                match_mismatch_matrix[i][j] = self.match_recursion(first_sequence_gap_matrix, match_mismatch_matrix, second_sequence_gap_matrix, i, j, v[i-1], w[j-1])
         alignment_score = max(first_sequence_gap_matrix[len(v)][len(w)], second_sequence_gap_matrix[len(v)][len(w)], match_mismatch_matrix[len(v)][len(w)])
-        print(match_mismatch_matrix)
-        return alignment_score
+        return (alignment_score, first_sequence_gap_matrix, match_mismatch_matrix, second_sequence_gap_matrix)
  
 
 def lecture_example_test():
     s = ScoringFunction(1, 10, 1, -1)
-    a = AffineAlignment(s)
-    assert a.align("AAC", "ACAAC") == -9
+    alignment = AffineAlignment(s).align("AAC", "ACAAC")
+    assert alignment[0]  == -9
     
 
 
 
+
 if __name__ == "__main__":
-    s = ScoringFunction(1, 10, 1, -1)
-    a = AffineAlignment(s)
-    print(a.align("AAC", "ACAAC"))
+    lecture_example_test()
                     
                 
 
