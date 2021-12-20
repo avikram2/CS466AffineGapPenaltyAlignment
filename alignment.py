@@ -271,17 +271,17 @@ def simple_implementation_tests():
     assert alignment[2] == "ABAB"
 
     s = ScoringFunction(1, 3, 1, -1)
-    alignment = AffineAlignment(s).align("AAATCA", "AAAGAATTCA")
+    alignment = AffineAlignment(s).align("AAATCA", "AAACAGTTCA")
 
     assert alignment[1] == 'AAA----TCA'
-    assert alignment[2] == "AAAGAATTCA"
+    assert alignment[2] == "AAACAGTTCA"
 
 
     s = ScoringFunction(1, 3, 1, -1)
-    alignment = AffineAlignment(s).align("CAT", "CARTS")
+    alignment = AffineAlignment(s).align("BMQ", "BMEQZ")
 
-    assert alignment[1] == "CAT--" or alignment[1] == "CA--T"
-    assert alignment[2] == "CARTS"
+    assert alignment[1] == "BMQ--" or alignment[1] == "BM--Q"
+    assert alignment[2] == "BMEQZ"
 
     s = ScoringFunction(1, 10, 1, -1)
     alignment = AffineAlignment(s).align("AACCC", "AATTCTTTCGC")
@@ -304,5 +304,4 @@ def results_random_DNA_strings(length1 = 50, length2 = 75, gap_opening = 10, gap
 
 
 if __name__ == "__main__":
-    simple_implementation_tests()
-    results_random_DNA_strings()
+    pass
