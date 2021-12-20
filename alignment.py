@@ -235,6 +235,16 @@ class AffineAlignment(object):
         matrix = [[0 for j in range(len(w)+1)] for i in range(len(v)+1)]
 
 
+import random
+def DNA_random(length):
+    rand = [random.choice("AGTC") for x in range(0,length)]
+    return ''.join(rand)
+
+
+def test_DNA_random(length = 50):
+    print(DNA_random(length))
+
+
 def simple_implementation_tests():
     s = ScoringFunction(1, 10, 1, -1)
     alignment = AffineAlignment(s).align("AAC", "ACAAC")
@@ -273,6 +283,19 @@ def simple_implementation_tests():
     assert alignment[1] == "CAT--" or alignment[1] == "CA--T"
     assert alignment[2] == "CARTS"
 
+    s = ScoringFunction(1, 10, 1, -1)
+    alignment = AffineAlignment(s).align("AACCC", "AATTCTTTCGC")
+    assert alignment[1] == "AA------CCC"
+    assert alignment[2] == "AATTCTTTCGC"
+
+def results_random_DNA_strings(length1 = 50, length2 = 75, gap_opening = 10, gap_extension = 5, match = 7, mismatch = -4):
+    s = ScoringFunction(match, gap_opening, gap_extension, mismatch)
+    v = DNA_random(length1)
+    w = DNA_random(length2)
+    alignment = AffineAlignment(s).align(v, w)
+    print("V:", v, "W:", w)
+    print("alignment: ", alignment)
+
 if __name__ == "__main__":
     simple_implementation_tests()
-    s = ScoringFunction(1, 3, 1, -1)
+    results_random_DNA_strings()
