@@ -288,6 +288,12 @@ def simple_implementation_tests():
     assert alignment[1] == "AA------CCC"
     assert alignment[2] == "AATTCTTTCGC"
 
+    s = ScoringFunction(10, 3, 6, -3)
+    alignment = AffineAlignment(s).align("TAGC", "TATATGC")
+
+    assert alignment[1] == "TA---GC"
+    assert alignment[2] == "TATATGC"
+
 def results_random_DNA_strings(length1 = 50, length2 = 75, gap_opening = 10, gap_extension = 5, match = 7, mismatch = -4):
     s = ScoringFunction(match, gap_opening, gap_extension, mismatch)
     v = DNA_random(length1)
@@ -295,6 +301,7 @@ def results_random_DNA_strings(length1 = 50, length2 = 75, gap_opening = 10, gap
     alignment = AffineAlignment(s).align(v, w)
     print("V:", v, "W:", w)
     print("alignment: ", alignment)
+
 
 if __name__ == "__main__":
     simple_implementation_tests()
