@@ -3,7 +3,7 @@
 Final Project CS 466 Ayush Vikram: Extending Pairwise Global Alignment Algorithm to Handle Affine Gap Penalties
 
 Code Usage:
-The implementation is present in alignment.py
+The entire implementation is present in alignment.py
 
 Firstly, you can set up your scoring parameters by using an object of the ScoringFunction class.
 
@@ -28,3 +28,6 @@ Data:
 The DNA_random(length) function will return a randomly-generated DNA string of the length specified. These can be passed into the .align() function to perform affine gap alignment. 
 
 The results_random_DNA_strings(length1 = 50, length2 = 75, gap_opening = 10, gap_extension = 5, match = 7, mismatch = -4) function takes in as parameter the length1 (length of v), length2 (length of w), gap opening and gap extension penalties (note, non-negative), and mismatch score, create a Scoring Function object, pass it in into a AffineAlignment object, run the alignment, and then print out the score and aligned v and aligned w.
+
+
+The main method (if __name__ == "__main__") is left blank so that all of the usage I mentioned above can be invoked/called there. 
